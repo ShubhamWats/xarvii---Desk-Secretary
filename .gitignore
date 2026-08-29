@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.egg-info/
+.pytest_cache/
+.pio/
+.pioenvs/
+.piolibdeps/
+dist/
+build/
+daemon/state/
+models/
+*.wav
+!tests/fixtures/*.wav
+config/config.local.toml
+.aider*

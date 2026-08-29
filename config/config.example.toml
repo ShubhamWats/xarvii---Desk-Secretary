@@ -1,0 +1,62 @@
+# Desk secretary daemon configuration
+# Copy to ~/.config/desk-secretary/config.toml and edit.
+# Secrets are referenced as env vars with ${VAR_NAME} syntax.
+
+[server]
+ws_host = "0.0.0.0"      # device-facing WebSocket (WiFi satellites)
+ws_port = 8765
+ctl_host = "127.0.0.1"   # local control plane for deskctl
+ctl_port = 8766
+serial_enabled = false   # USB CDC control fallback
+# serial_path = "/dev/ttyACM0"
+
+[stt]
+# echo          canned phrase, no models needed (testing)
+# faster-whisper  local, private; needs `pip install .[stt-local]`
+# groq / openai  cloud via OpenAI-compatible endpoint
+engine = "echo"
+model = "small"
+language = "en"
+compute_type = "int8"
+base_url = "https://api.groq.com/openai/v1"
+api_key_env = "GROQ_API_KEY"
+api_model = "whisper-large-v3-turbo"
+
+[llm]
+max_history_turns = 10
+
+[llm.tiers]
+fast = "ollama/qwen3:4b"
+reasoning = "ollama/qwen3:8b"
+vision = "anthropic/claude-haiku-4-5"
+# Any provider string: "echo/x", "ollama/<tag>",
+# "anthropic/<id>", "openai/<id>", or "groq/<id>".
+
+[llm.providers]
+# ollama     { base_url }
+# anthropic  { base_url, api_key_env }
+# openai     { base_url, api_key_env }
+# groq       { base_url, api_key_env }
+
+[tts]
+# none  log only + confirmation chime (default; works without piper)
+# piper local neural TTS; install: pipx install piper-tts && download a voice
+engine = "none"
+voice = ""                # e.g. ~/.local/share/piper/voices/en_US-lessac-medium.onnx
+length_scale = 1.0
+sentence_min_len = 12
+
+[obsidian]
+vault = ""                # e.g. "~/Documents/Obsidian Vault"
+inbox_note = "Inbox.md"
+
+[websearch]
+provider = "none"         # tavily | brave | none
+max_results = 5
+
+[reminders]
+state_file = "~/.local/state/desk-secretary/reminders.json"
+
+# [mcp.filesystem]
+# command = "npx"
+# args = ["-y", "@modelcontextprotocol/server-filesystem", "/home/shbhm"]

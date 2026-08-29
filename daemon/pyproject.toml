@@ -1,0 +1,30 @@
+[project]
+name = "deskd"
+version = "0.1.0"
+description = "Desk secretary companion daemon for the ESP32-S3 satellite"
+requires-python = ">=3.11"
+dependencies = [
+    "websockets>=13",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+audio = ["sounddevice>=0.4.6", "numpy>=1.26"]
+stt-local = ["faster-whisper>=1.0"]
+serial = ["pyserial>=3.5", "pyserial-asyncio>=0.6"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+deskd = "deskd.__main__:main"
+xarvii = "deskd.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["deskd*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["../tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

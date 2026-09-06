@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-# xarvii one-line installer — Ubuntu 24.04+ (Debian-family)
-# Usage:  bash install.sh
+
 set -euo pipefail
 
 cd "$(dirname "$0")"
@@ -13,7 +11,6 @@ info() { echo -e "\033[36m→\033[0m $*"; }
 
 bold "== xarvii installer =="
 
-# ---- system packages (best-effort; needs sudo for a one-time apt call)
 info "checking system packages…"
 MISSING=()
 for p in ffmpeg playerctl brightnessctl libportaudio2; do
@@ -27,7 +24,7 @@ else
   ok "system packages present"
 fi
 
-# ---- venv + python deps
+
 if [ ! -x "$VENV/bin/python" ]; then
   info "creating venv…"
   python3 -m venv "$VENV"
@@ -37,7 +34,7 @@ info "installing python dependencies (this can take a few minutes)…"
 "$VENV/bin/pip" -q install -e './daemon[audio,stt-local,serial,dev]' edge-tts av rich fastembed feedparser resemblyzer
 ok "python environment ready"
 
-# ---- first piper voice (~60 MB)
+
 VOICE_DIR="$HOME/.local/share/piper/voices"
 mkdir -p "$VOICE_DIR"
 if [ ! -f "$VOICE_DIR/en_US-lessac-medium.onnx" ]; then
@@ -49,7 +46,7 @@ if [ ! -f "$VOICE_DIR/en_US-lessac-medium.onnx" ]; then
 fi
 ok "piper voices in $VOICE_DIR"
 
-# ---- CLI on PATH
+
 mkdir -p "$HOME/.local/bin"
 for cmd in xarvii deskd; do
   printf '#!/bin/bash\nexec "%s/.venv/bin/%s" "$@"\n' "$ROOT" "$cmd" > "$HOME/.local/bin/$cmd"
@@ -57,14 +54,14 @@ for cmd in xarvii deskd; do
 done
 ok "commands installed: xarvii deskd"
 
-# ---- config skeleton
+
 CFG_DIR="$HOME/.config/desk-secretary"
 mkdir -p "$CFG_DIR"
 touch "$CFG_DIR/env" && chmod 600 "$CFG_DIR/env"
 [ -f "$CFG_DIR/config.toml" ] || cp config/config.example.toml "$CFG_DIR/config.toml"
 ok "config at $CFG_DIR/config.toml"
 
-# ---- persistent systemd user service
+
 UNIT_DIR="$HOME/.config/systemd/user/deskd-dev.service.d"
 mkdir -p "$UNIT_DIR"
 cat > "$HOME/.config/systemd/user/deskd-dev.service" <<EOF

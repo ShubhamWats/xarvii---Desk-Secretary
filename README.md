@@ -14,7 +14,7 @@
    ESP32-S3 / Pi / laptop                      └───────────────────────────┘
 ```
 
-## ✨ Highlights
+## Highlights
 
 -  **Natural conversation** - push-to-talk now, wake-word later; follow-up
   window means you just keep talking after every answer
@@ -53,7 +53,7 @@ Then: hold **ENTER** to talk, release to send, keep talking in the follow-up win
 
 No hardware? No problem - everything above runs on your laptop's mic + speakers.
 
-## 🎛 Brains & voices
+## Brains & voices
 
 ```bash
 xarvii brains                        # see what's actually available
@@ -81,7 +81,7 @@ def register(registry, ctx):
 
 Restart the daemon - the agent can now call it mid-conversation.
 
-## 📡 Hardware roadmap (ESP32-S3)
+## Hardware roadmap (ESP32-S3)
 
 The wire protocol is **frozen** (see [docs/protocol.md](docs/protocol.md)) and
 any client must pass [scripts/conformance.py](scripts/conformance.py).
@@ -105,10 +105,10 @@ PTT/mute buttons · WS2812 LED. Wiring guide lands with the firmware phase.
 
 | Phase | State |
 |---|---|
-| Core loop + skills + brains + dashboard | ✅ shipped |
-| Speaker ID, RAG memory, rules engine | ✅ shipped |
-| Packaging (installer/dashboard/plugins) | ✅ shipped |
-| ESP32-S3 firmware (Tier-A features) | 🔜 next |
+| Core loop + skills + brains + dashboard | shipped |
+| Speaker ID, RAG memory, rules engine | shipped |
+| Packaging (installer/dashboard/plugins) | shipped |
+| ESP32-S3 firmware (Tier-A features) | next |
 
 Built with faster-whisper, Piper, Ollama, Gemini, edge-tts,
 openwakeword, resemblyzer, fastembed - standing on giants.

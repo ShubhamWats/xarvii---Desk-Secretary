@@ -1,16 +1,12 @@
-#!/usr/bin/env python3
-"""Backwards-compatible shim: the satellite now lives in deskd.satellite.
 
-Preferred usage:  xarvii device
-"""
 import os
 import sys
 
 
 def _reexec_into_venv() -> None:
     try:
-        import numpy  # noqa: F401
-        import sounddevice  # noqa: F401
+        import numpy 
+        import sounddevice  
 
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "daemon"))
         return
